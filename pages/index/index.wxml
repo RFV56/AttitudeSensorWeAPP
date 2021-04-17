@@ -1,0 +1,54 @@
+<wxs module="utils">
+module.exports.max = function(n1, n2) {
+  return Math.max(n1, n2)
+}
+module.exports.len = function(arr) {
+  arr = arr || []
+  return arr.length
+}
+</wxs>
+
+<view>
+  <!-- 角度值 -->
+  <view class="AngleSensor">
+    <view class="AngleSensorItem">
+      <text class="Axis">角度X</text>
+      <text class="AngleSensorData">{{ angle.xAxis }}°</text>
+    </view>
+    <view class="AngleSensorItem">
+      <text class="Axis">角度Y</text>
+      <text class="AngleSensorData">{{ angle.yAxis }}°</text>
+    </view>
+    <view class="AngleSensorItem">
+      <text class="Axis">角度Z</text>
+      <text class="AngleSensorData">{{ angle.zAxis }}°</text>
+    </view>
+  </view>
+
+  <!-- 加速度折线图 -->
+  <view class="charts">
+    <ec-canvas id="mychart-dom-line" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+
+  <!-- 姿态分析结果 -->
+  <view id='status'>
+    <text style="margin-left:20rpx;color:gray">当前状态:</text>
+    <view id="result">{{result}}</view>
+  </view>
+
+  <!-- 连接按钮 -->
+  <view id="connectBlueTooth">
+    <van-button type="info" class="demo-margin-right" bind:click="Connect">
+      <view>
+        <image id="blueToothImage" src="BlueTooth.png"></image>连接手表
+      </view>
+    </van-button>
+  </view>
+
+
+
+
+  <!-- 底部弹出连接设备列表 -->
+  <van-action-sheet show="{{ showDeviceList }}" actions="{{ devices }}" description="在下面选择要连接的设备" bind:close="Connect" bind:select="onSelect">
+  </van-action-sheet>
+</view>
